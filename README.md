@@ -1,5 +1,7 @@
 # Tickets-API
 
+## _What is this?_  
+
 A RESTful API written in Golang to store and retrieve ticket information.
 
 This is a RESTful API built on top of the gin-gonic/gin package that uses a MySQL database in order to store and retrieve ticket information, though it can also be used for other types of data. 
