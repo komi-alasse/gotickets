@@ -16,7 +16,7 @@ Note: In order to use this API you must have access to a MySQL server, you can i
 
 ## Usage
 
-From there you can simply run `go run .` from the project repository to initiate a server which will run from your local device on port 3306. 
+From there you can simply run `go run .` from the project repository to initiate a server which will run from your local device on port 8080. 
 
 At any point you can enter `Ctrl-C` to stop the process.
 
