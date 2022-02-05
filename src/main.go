@@ -13,6 +13,7 @@ import (
 var db *sql.DB
 var err error
 
+// Structure of json ticket data.
 type ticket struct {
 	ID          string `json:"id"`
 	Title       string `json:"title"`
@@ -20,6 +21,8 @@ type ticket struct {
 	Description string `json:"description"`
 }
 
+// Returns all the tickets currently stored in the database when accessed through an 
+// api requrest.
 func getTickets(c *gin.Context) {
 	var tickets = []ticket{}
 	var rows *sql.Rows
@@ -42,6 +45,7 @@ func getTickets(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, tickets)
 }
 
+// Returns the details of a specific ticket in the database.
 func getTicketID(c *gin.Context) {
 	var response ticket
 	var row *sql.Rows
@@ -66,6 +70,7 @@ func getTicketID(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, response)
 }
 
+// Creates a ticket with the appropriate fields specified and stores it in the database.
 func createTicket(c *gin.Context) {
 	var newTicket ticket
 	if err := c.BindJSON(&newTicket); err != nil {
@@ -74,6 +79,7 @@ func createTicket(c *gin.Context) {
 	storeTicket(newTicket.ID, newTicket.Title)
 }
 
+// Handles creation of the database, creating the tickets table as well as the table's columns.
 func create(name string) {
 	db, err = sql.Open("mysql", "root:@tcp(127.0.0.1:3306)/")
 	if err != nil {
@@ -95,6 +101,7 @@ func create(name string) {
 	}
 }
 
+// Handles the storage of the ticket in the database.
 func storeTicket(id string, title string) {
 	sql := fmt.Sprintf(`insert into tickets (id, title) values (%s, '%s')`, id, title)
 	fmt.Println(sql)
@@ -104,6 +111,7 @@ func storeTicket(id string, title string) {
 	}
 }
 
+// Sets up the API on the current machine while listening on port 8080.
 func main() {
 	create("tickets")
 	router := gin.Default()
